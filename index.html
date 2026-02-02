@@ -89,6 +89,10 @@
   </style>
 </head>
 <body>
+  <!-- Sound Unlock Overlay -->
+  <div id="soundOverlay" style="position:fixed;inset:0;background:rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center;z-index:9999;">
+    <button id="soundBtn" style="background:#e63946;color:white;border:none;padding:16px 28px;border-radius:30px;font-size:18px;box-shadow:0 10px 20px rgba(0,0,0,0.3);">🔊 Tap to turn on sound</button>
+  </div>
 
   <audio id="music" loop>
     <source src="https://cdn.pixabay.com/audio/2022/10/30/audio_1c4d9e5b7c.mp3" type="audio/mpeg">
@@ -109,9 +113,13 @@
   <script>
     const music = document.getElementById('music');
     music.volume = 0.6;
-    document.body.addEventListener('click', () => {
+    const overlay = document.getElementById('soundOverlay');
+    const soundBtn = document.getElementById('soundBtn');
+
+    soundBtn.addEventListener('click', () => {
       music.play().catch(() => {});
-    }, { once: true });
+      overlay.style.display = 'none';
+    });
 
     function yesClicked() {
       const bgMusic = document.getElementById('music');

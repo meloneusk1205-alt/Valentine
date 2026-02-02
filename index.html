@@ -91,11 +91,11 @@
 <body>
 
   <audio id="music" loop>
-    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    <source src="https://cdn.pixabay.com/audio/2022/10/30/audio_1c4d9e5b7c.mp3" type="audio/mpeg">
   </audio>
 
   <div class="card">
-    <div class="names">Pranav ❤️ You</div>
+    <div class="names">Ashudyaaaaa ❤️ You</div>
     <h1>Will You Be My Valentine? 💖</h1>
     <p>From stolen glances to endless smiles,
       I just want to ask one thing today 🌹</p>
@@ -114,17 +114,49 @@
 
     function yesClicked() {
       document.body.innerHTML = `
-      <div style="height:100vh;background:#ece5dd;display:flex;align-items:center;justify-content:center;font-family:Segoe UI,sans-serif;">
-        <div style="width:360px;max-width:95%;background:#f0f0f0;border-radius:18px;box-shadow:0 20px 40px rgba(0,0,0,0.2);overflow:hidden;">
-          <div style="background:#075e54;color:white;padding:14px 16px;font-weight:600;">Ashudyaaaaa 💕</div>
-          <div style="padding:16px;display:flex;flex-direction:column;gap:10px;">
-            <div style="align-self:flex-start;background:white;padding:10px 14px;border-radius:12px;max-width:80%;">Hey 😊</div>
-            <div style="align-self:flex-start;background:white;padding:10px 14px;border-radius:12px;max-width:80%;">I just answered something important...</div>
-            <div style="align-self:flex-end;background:#dcf8c6;padding:10px 14px;border-radius:12px;max-width:80%;">Yes 💖</div>
-            <div style="align-self:flex-start;background:white;padding:10px 14px;border-radius:12px;max-width:80%;">Screenshot this & send it to me 😏📸</div>
+      <div style="height:100vh;background:#0b141a;display:flex;align-items:center;justify-content:center;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
+        <div style="width:360px;max-width:95%;background:#e5ddd5;border-radius:22px;box-shadow:0 25px 50px rgba(0,0,0,0.4);overflow:hidden;">
+          <!-- iOS WhatsApp Header -->
+          <div style="background:#075e54;color:white;padding:12px 14px;display:flex;flex-direction:column;gap:2px;">
+            <div style="font-weight:600;font-size:16px;">Ashudyaaaaa 💕</div>
+            <div style="font-size:12px;opacity:0.85;">online</div>
+          </div>
+
+          <!-- Chat Area -->
+          <div id="chat" style="padding:14px;display:flex;flex-direction:column;gap:10px;min-height:300px;">
+          </div>
+
+          <!-- iOS Input Bar -->
+          <div style="background:#f0f0f0;padding:10px;display:flex;align-items:center;gap:8px;">
+            <div style="flex:1;background:white;border-radius:20px;padding:8px 12px;color:#999;font-size:14px;">Message</div>
+            <div style="background:#25d366;color:white;border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;font-size:18px;">➤</div>
           </div>
         </div>
       </div>`;
+
+      const chat = document.getElementById('chat');
+      const sound = new Audio('https://cdn.pixabay.com/audio/2022/03/15/audio_6b8b4f1b94.mp3');
+
+      function addMessage(text, side) {
+        const msg = document.createElement('div');
+        msg.style.maxWidth = '80%';
+        msg.style.padding = '10px 14px';
+        msg.style.borderRadius = '14px';
+        msg.style.fontSize = '14px';
+        msg.style.lineHeight = '1.4';
+        msg.style.alignSelf = side === 'left' ? 'flex-start' : 'flex-end';
+        msg.style.background = side === 'left' ? '#fff' : '#dcf8c6';
+        msg.innerText = text;
+        chat.appendChild(msg);
+        chat.scrollTop = chat.scrollHeight;
+        sound.play();
+      }
+
+      setTimeout(() => addMessage('Hey 😊', 'left'), 600);
+      setTimeout(() => addMessage('I just answered something important…', 'left'), 1600);
+      setTimeout(() => addMessage('Yes 💖', 'right'), 2600);
+      setTimeout(() => addMessage('Screenshot this and send it to me 😏📸', 'left'), 3600);
+
       startConfetti();
     }
 

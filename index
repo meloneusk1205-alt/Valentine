@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Will You Be My Valentine?</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    }
+    .card {
+      background: white;
+      padding: 45px 35px;
+      border-radius: 25px;
+      text-align: center;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+      max-width: 420px;
+      width: 90%;
+      position: relative;
+      z-index: 2;
+      animation: pop 1s ease;
+    }
+    @keyframes pop {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    h1 {
+      color: #e63946;
+      margin-bottom: 10px;
+    }
+    p {
+      color: #555;
+      margin-bottom: 25px;
+      font-size: 16px;
+    }
+    .names {
+      font-size: 18px;
+      margin-bottom: 20px;
+      color: #222;
+      font-weight: 600;
+    }
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      position: relative;
+      height: 60px;
+    }
+    button {
+      padding: 14px 28px;
+      border: none;
+      border-radius: 30px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    #yes {
+      background: #e63946;
+      color: white;
+      box-shadow: 0 10px 20px rgba(230,57,70,0.4);
+    }
+    #yes:hover {
+      transform: scale(1.15);
+    }
+    #no {
+      background: #eee;
+      color: #333;
+      position: absolute;
+    }
+    .heart {
+      position: absolute;
+      color: rgba(230,57,70,0.6);
+      font-size: 20px;
+      animation: float 6s linear infinite;
+    }
+    @keyframes float {
+      0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+      10% { opacity: 1; }
+      100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Sound Unlock Overlay -->
+  <div id="soundOverlay" style="position:fixed;inset:0;background:rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center;z-index:9999;">
+    <button id="soundBtn" style="background:#e63946;color:white;border:none;padding:16px 28px;border-radius:30px;font-size:18px;box-shadow:0 10px 20px rgba(0,0,0,0.3);">🔊 Tap to turn on sound</button>
+  </div>
+
+  <audio id="music" preload="auto" playsinline loop>
+    <source src="https://cdn.pixabay.com/audio/2024/01/18/audio_7c9d3a7b6e.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="card">
+    <div class="names">Ashudyaaaaa ❤️ You</div>
+    <h1>Will You Be My Valentine? 💖</h1>
+    <p>From stolen glances to endless smiles,
+      I just want to ask one thing today 🌹</p>
+
+    <div class="buttons">
+      <button id="yes" onclick="yesClicked()">Yes 💕</button>
+      <button id="no" onmouseover="moveNo()">No 🙈</button>
+    </div>
+  </div>
+
+  <script>
+    const music = document.getElementById('music');
+    music.volume = 0.6;
+    const overlay = document.getElementById('soundOverlay');
+    const soundBtn = document.getElementById('soundBtn');
+
+    soundBtn.addEventListener('click', () => {
+      music.play().catch(() => {});
+      overlay.style.display = 'none';
+    });
+
+    function yesClicked() {
+      const bgMusic = document.getElementById('music');
+      if (bgMusic) bgMusic.play().catch(() => {});
+
+      document.body.innerHTML = `
+        <div style="display:flex;align-items:center;justify-content:center;height:100vh;background:linear-gradient(135deg,#ff9a9e,#fad0c4);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
+          <div style="background:white;padding:50px 40px;border-radius:30px;text-align:center;box-shadow:0 25px 50px rgba(0,0,0,0.25);animation:pop 1s ease;max-width:420px;width:90%;">
+            <h1 style="color:#e63946;font-size:30px;margin-bottom:10px;">She said YES 💖</h1>
+            <p style="font-size:18px;color:#444;margin-bottom:20px;">And that just made everything perfect.</p>
+            <p style="font-size:16px;color:#666;">See you this Valentine’s 🌹</p>
+          </div>
+        </div>`;
+      startConfetti();
+    }
+
+    function moveNo() {
+      const noBtn = document.getElementById('no');
+      const x = Math.random() * 250 - 125;
+      const y = Math.random() * 150 - 75;
+      noBtn.style.transform = `translate(${x}px, ${y}px)`;
+    }
+
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.innerHTML = '❤️';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.fontSize = Math.random() * 20 + 15 + 'px';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 6000);
+    }
+
+    setInterval(createHeart, 500);
+
+    function startConfetti() {
+      for (let i = 0; i < 150; i++) {
+        setTimeout(() => createHeart(), i * 20);
+      }
+    }
+  </script>
+</body>
+</html>
